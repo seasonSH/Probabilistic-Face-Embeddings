@@ -1,4 +1,4 @@
-#Probabilistic Face Embeddings
+# Probabilistic Face Embeddings
 
 This is a demo code of how to train and test with [Probabilistic Face Embeddings]() using Tensorflow. Probabilistic Face Embeddgins (PFE) is a method that converts conventional CNN-based face embeddings into probabilistic embeddings by calibrating each feature value with an uncertainty value. The representation of each face will be an Guassian distribution parametrized by (mu, sigma), where mu is the original embedding and sigma is the learned the uncertainty. Experiments show that PFE could improve the performance of face recognition by taking uncertainty into account.
 
@@ -14,15 +14,15 @@ TODO
 ## <img src="https://image.flaticon.com/icons/svg/1/1383.svg" width="25"/> Usage
 **Note:** In this section, we assume that you are always in the directory **`$PROJECT_ROOT/`**
 ### Preprocessing
-1. In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for how train and test with PFEs. In this section, we will align these datasets with the landmarks I pre-extracted.
-2. Download the original images of CASIA-WebFace dataset and align the images with the following command:
+In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training and testing PFEs. In this section, we will align these datasets with the landmarks I pre-extracted.
+1. Download the original images of CASIA-WebFace dataset and align the images with the following command:
     ``` Shell
     python align/align_dataset.py data/ldmark_casia_mtcnncaffe.txt \
     data/casia_mtcnncaffe_aligned \
     --prefix /path/to/CASIA-Webface/images \
     --transpose_input --image_size 96 112
     ```
-3. `Download the original images of CASIA-WebFace dataset and align the images with the following command:
+2. Download the original images of LFW dataset and align the images with the following command:
     ``` Shell
     python align/align_dataset.py data/ldmark_lfw_mtcnncaffe.txt \
     data/lfw_mtcnncaffe_aligned \
@@ -35,7 +35,7 @@ TODO
     /path/to/IJB-A/images/ \
     data/ijba_cropped/
     ```
-    To crop the images, you need to make sure there are two folders under the ```images``` folder: ```img``` and ```frame```. And then align the images with the following command:
+    To crop the images, you need to make sure that there are two folders under the given dataset folder: ```img``` and ```frame```. And then align the images with the following command:
     ``` Shell
     python align/align_dataset.py data/ldmark_ijba_mtcnncaffe.txt \
     data/ijba_mtcnncaffe_aligned \
@@ -52,22 +52,23 @@ TODO
     ``` Shell
     python train.py config/sphere64_casia.py
     ```
-    The command will create an folder under ```log/sphere64_casia_am_PFE/``` which saves all the checkpoints and summaries. The model directory is named as the time you start training.
+    The command will create an folder under ```log/sphere64_casia_am_PFE/```, which saves all the checkpoints and summaries. The model directory is named as the time you start training.
 
 ### Testing
 + **Single Image Comparison**
-    We use LFW dataset as an example for single image comparison. Make sure you have aligned LFW images and a PFE model trained using the previous commands. Then you can test it on the LFW dataset with the following result:
+    We use LFW dataset as an example for single image comparison. Make sure you have aligned LFW images using the previous commands. Then you can test it on the LFW dataset with the following result:
     ```Shell
     python eval_lfw.py --model_dir /path/to/your/model/directory \
     --dataset_path data/lfw_mtcnncaffe_aligned
     ```
 
 + **Template Fusion and Comparison**
-    We use IJB-A dataset as an example for template face comparison. Make sure you have aligned IJB-A images and a PFE model trained using the previous commands. Then you can test it on the LFW dataset with the following result:
+    We use IJB-A dataset as an example for template face comparison. Make sure you have aligned IJB-A images using the previous commands. Then you can test it on the LFW dataset with the following result:
     ```Shell
     python eval_ijba.py --model_dir /path/to/your/model/directory \
     --dataset_path data/ijba_mtcnncaffe_aligned
     ```
++ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could slightly be affected because of alignment. To use Matlab alignment code, you can check ```align/align_dataset```.
 
 ### Visualization of Uncertainty
 TODO
