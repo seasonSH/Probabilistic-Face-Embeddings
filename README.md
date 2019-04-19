@@ -44,7 +44,7 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
     ```
 
 ### Training
-1. Before training, you need to download the [base model](https://drive.google.com/open?id=1UG2khUfd-hVlnHw-up2ZuwiEzas270c9). Unzip the files under ```pretrained/sphere64_caisa_am/```.
+1. Before training, you need to download the [base model](https://drive.google.com/open?id=1MiC_qCj5GFidWLtON9ekClOCJu6dPHT4). Unzip the files under ```pretrained/sphere64_caisa_am/```.
 
 2. The configuration files for training are saved under ```config/``` folder, where you can define the training data, pre-trained model, network definition and other hyper-parameters. 
 3. The uncertainty module that we are going to train is in ```models/uncertainty_module.py```.
@@ -76,7 +76,7 @@ TODO
 
 ## <img src="https://image.flaticon.com/icons/svg/48/48541.svg" width="25"/> Pre-trained Model
 ##### Base Model: 
-[Google Drive](https://drive.google.com/open?id=1UG2khUfd-hVlnHw-up2ZuwiEzas270c9)
+[Google Drive](https://drive.google.com/open?id=1MiC_qCj5GFidWLtON9ekClOCJu6dPHT4)
 
 
 
