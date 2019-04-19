@@ -1,4 +1,4 @@
-"""Main training file for WarpGAN
+"""Main training file for PFE
 """
 # MIT License
 # 
