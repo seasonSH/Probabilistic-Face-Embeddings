@@ -1,0 +1,6 @@
+*
+!.gitignore
+!ldmark_casia_mtcnncaffe.txt
+!ldmark_ijba_mtcnncaffe.txt
+!ldmark_lfw_mtcnncaffe.txt
+!list_casia_mtcnncaffe_aligned_remove_lfw_ijbc
