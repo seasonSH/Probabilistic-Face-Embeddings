@@ -29,9 +29,6 @@ import math
 import argparse
 import numpy as np
 
-import facepy
-import facepy.plot as fplt
-
 from utils import utils
 from utils.dataset import Dataset
 from utils.imageprocessing import preprocess
@@ -65,9 +62,6 @@ def main(args):
     network = Network()
     network.load_model(args.model_dir)
     proc_func = lambda x: preprocess(x, network.config, False)
-
-    # Define the function to extract features
-        # return np.random.random((1,2))
 
     testset = Dataset(args.dataset_path)
     ijbatest = IJBATest(testset['abspath'].values)
@@ -119,9 +113,9 @@ if __name__ == '__main__':
     parser.add_argument("--model_dir", help="The path to the pre-trained model directory",
                         type=str, default=None)
     parser.add_argument("--dataset_path", help="The path to the IJB-A dataset directory",
-                        type=str, default=os.environ['DATABASES2'] + '/FaceDatabases/Janus/ijba_mtcnncaffe_aligned')
+                        type=str, default='data/ijba_mtcnncaffe_aligned')
     parser.add_argument("--protocol_path", help="The path to the IJB-A protocol directory",
-                        type=str, default=os.environ['DATABASES2'] + '/FaceDatabases/Janus/IJB/IJB-A')
+                        type=str, default='proto/IJB-A')
     parser.add_argument("--batch_size", help="Number of images per mini batch",
                         type=int, default=256)
     args = parser.parse_args()
