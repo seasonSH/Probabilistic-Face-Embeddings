@@ -1,4 +1,4 @@
-"""Main implementation class of WarpGAN
+"""Main implementation class of PFE
 """
 # MIT License
 # 

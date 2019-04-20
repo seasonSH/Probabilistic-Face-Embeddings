@@ -16,7 +16,7 @@ log_base_dir = './log/'
 summary_interval = 100
 
 # Training dataset path
-train_dataset_path = os.environ["DATABASES"] + "/FaceDatabases/CASIA-Webface/list_casia_mtcnncaffe_aligned_remove_lfw_ijbc.txt"
+train_dataset_path = "./data/list_casia_mtcnncaffe_aligned_nooverlap.txt"
 
 # Target image size for the input of network
 image_size = [112, 96]
