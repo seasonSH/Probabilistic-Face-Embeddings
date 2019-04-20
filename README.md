@@ -70,7 +70,7 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
     python eval_ijba.py --model_dir /path/to/your/model/directory \
     --dataset_path data/ijba_mtcnncaffe_aligned
     ```
-+ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could slightly be affected because of alignment. To use Matlab alignment code, you can check ```align/align_dataset```.
++ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could slightly be affected because of alignment. To use Matlab alignment code, you can check ```align/face_align_demo.m```.
 
 ### Visualization of Uncertainty
 TODO
