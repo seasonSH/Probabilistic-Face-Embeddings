@@ -96,22 +96,22 @@ def main(args):
 
     print('---- Average pooling')
     aggregate_templates(tester.verification_templates, features, 'mean')
-    TARs, FARs, threshold = tester.test_verification(force_compare(utils.pair_euc_score))
+    TARs, std, FARs = tester.test_verification(force_compare(utils.pair_euc_score))
     for i in range(len(TARs)):
-        print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], FARs[i], threshold[i]))
+        print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], std[i], FARs[i]))
 
     print('---- Uncertainty pooling')
     aggregate_templates(tester.verification_templates, features, 'PFE_fuse')
     TARs, FARs, threshold = tester.test_verification(force_compare(utils.pair_euc_score))
     for i in range(len(TARs)):
-        print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], FARs[i], threshold[i]))
+        print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], std[i], FARs[i]))
 
 
     print('---- MLS comparison')
     aggregate_templates(tester.verification_templates, features, 'PFE_fuse_match')
     TARs, FARs, threshold = tester.test_verification(force_compare(utils.pair_MLS_score))
     for i in range(len(TARs)):
-        print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], FARs[i], threshold[i]))
+        print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], std[i], FARs[i]))
 
 
 

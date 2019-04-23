@@ -57,9 +57,9 @@ def main(args):
     lfwtest.init_standard_proto(args.protocol_path)
 
     accuracy, threshold = lfwtest.test_standard_proto(mu, utils.pair_euc_score)
-    print('\neucliean accuracy: %.5f threshold: %.5f' % (accuracy, threshold))
+    print('Euclidean (cosine) accuracy: %.5f threshold: %.5f' % (accuracy, threshold))
     accuracy, threshold = lfwtest.test_standard_proto(feat_pfe, utils.pair_MLS_score)
-    print('\MLS accuracy: %.5f threshold: %.5f' % (accuracy, threshold))
+    print('MLS accuracy: %.5f threshold: %.5f' % (accuracy, threshold))
 
 
 if __name__ == '__main__':
