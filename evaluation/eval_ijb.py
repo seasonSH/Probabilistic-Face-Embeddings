@@ -58,7 +58,7 @@ def aggregate_templates(templates, features, method):
     print('')
 
 
-def force_compare(compare_func):
+def force_compare(compare_func, verbose=False):
     def compare(t1, t2):
         score_vec = np.zeros(len(t1))
         for i in range(len(t1)):
@@ -66,9 +66,10 @@ def force_compare(compare_func):
                 score_vec[i] = -9999
             else:
                 score_vec[i] = compare_func(t1[i][None], t2[i][None])
-            if i % 1000 == 0:
+            if verbose and i % 1000 == 0:
                 sys.stdout.write('Matching pair {}/{}...\t\r'.format(i, len(t1)))
-        print('')
+        if verbose:
+            print('')
         return score_vec
     return compare
 
