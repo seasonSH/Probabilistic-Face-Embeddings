@@ -155,8 +155,6 @@ class IJBATest:
         templates1 = fold.templates1
         templates2 = fold.templates2
 
-        # features1 = [self.features[t.indices] for t in templates1]
-        # features2 = [self.features[t.indices] for t in templates2]
         features1 = [t.feature for t in templates1]
         features2 = [t.feature for t in templates2]
         labels1 = np.array([t.label for t in templates1])

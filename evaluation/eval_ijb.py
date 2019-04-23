@@ -36,6 +36,26 @@ from network import Network
 
 
 from evaluation.ijba import IJBATest
+from evaluation.ijbc import IJBCTest
+
+
+def aggregate_templates(templates, features, method):
+    for i,t in enumerate(templates):
+        if len(t.indices) > 0:
+            if method == 'mean':
+                t.feature = utils.l2_normalize(np.mean(features[t.indices], axis=0))
+            if method == 'PFE_fuse':
+                t.mu, t.sigma_sq = utils.aggregate_PFE(features[t.indices], normalize=True, concatenate=False)
+                t.feature = t.mu
+            if method == 'PFE_fuse_match':
+                if not hasattr(t, 'mu'):
+                    t.mu, t.sigma_sq = utils.aggregate_PFE(features[t.indices], normalize=True, concatenate=False)
+                t.feature = np.concatenate([t.mu, t.sigma_sq])
+        else:
+            t.feature = None
+        if i % 1000 == 0:
+            sys.stdout.write('Fusing templates {}/{}...\t\r'.format(i, len(templates)))
+    print('')
 
 
 def force_compare(compare_func):
@@ -45,17 +65,13 @@ def force_compare(compare_func):
             if t1[i] is None or t2[i] is None:
                 score_vec[i] = -9999
             else:
-                score_vec[i] = compare_func(t1[i][None], t2[i][None])   
+                score_vec[i] = compare_func(t1[i][None], t2[i][None])
+            if i % 1000 == 0:
+                sys.stdout.write('Matching pair {}/{}...\t\r'.format(i, len(t1)))
+        print('')
         return score_vec
     return compare
 
-def extract_feature(paths, num_images=None, verbose=False):
-    if num_images is not None:
-        num_images = min(len(paths), num_images)
-        idx = np.random.permutation(len(paths))[:num_images]
-        paths = paths[idx]
-    embeddings, confidence = network.extract_feature(paths, args.batch_size, proc_func=proc_func, verbose=verbose)
-    return np.concatenate([embeddings, confidence], axis=1)
 
 def main(args):
 
@@ -64,45 +80,35 @@ def main(args):
     proc_func = lambda x: preprocess(x, network.config, False)
 
     testset = Dataset(args.dataset_path)
-    ijbatest = IJBATest(testset['abspath'].values)
-    ijbatest.init_proto(args.protocol_path)
+    if args.protocol == 'ijba':
+        tester = IJBATest(testset['abspath'].values)
+        tester.init_proto(args.protocol_path)
+    elif args.protocol == 'ijbc':
+        tester = IJBCTest(testset['abspath'].values)
+        tester.init_proto(args.protocol_path)
+    else:
+        raise ValueError('Unkown protocol. Only accept "ijba" or "ijbc".')
 
 
-    mu, sigma_sq = network.extract_feature(ijbatest.image_paths, args.batch_size, proc_func=proc_func, verbose=True)
+    mu, sigma_sq = network.extract_feature(tester.image_paths, args.batch_size, proc_func=proc_func, verbose=True)
     features = np.concatenate([mu, sigma_sq], axis=1)
 
-
-    print('Fusing (Average) templates...')
-    for t in ijbatest.verification_templates:
-        if len(t.indices) > 0:
-            t.feature = utils.l2_normalize(np.mean(features[t.indices], axis=0))
-        else:
-            t.feature = None
-
     print('---- Average pooling')
-    TARs, FARs, threshold = ijbatest.test_verification(force_compare(utils.pair_euc_score))
+    aggregate_templates(tester.verification_templates, features, 'mean')
+    TARs, FARs, threshold = tester.test_verification(force_compare(utils.pair_euc_score))
     for i in range(len(TARs)):
         print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], FARs[i], threshold[i]))
-
-
-    print('Fusing (PFE) templates...')
-    for t in ijbatest.verification_templates:
-        if len(t.indices) > 0:
-            t.mu, t.sigma_sq = utils.aggregate_PFE(features[t.indices], normalize=True, concatenate=False)
-            t.feature = t.mu
 
     print('---- Uncertainty pooling')
-    TARs, FARs, threshold = ijbatest.test_verification(force_compare(utils.pair_euc_score))
+    aggregate_templates(tester.verification_templates, features, 'PFE_fuse')
+    TARs, FARs, threshold = tester.test_verification(force_compare(utils.pair_euc_score))
     for i in range(len(TARs)):
         print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], FARs[i], threshold[i]))
 
 
-    print('Fusing (PFE) templates...')
-    for t in ijbatest.verification_templates:
-        if len(t.indices) > 0:
-            t.feature = np.concatenate([t.mu, t.sigma_sq])
     print('---- MLS comparison')
-    TARs, FARs, threshold = ijbatest.test_verification(force_compare(utils.pair_MLS_score))
+    aggregate_templates(tester.verification_templates, features, 'PFE_fuse_match')
+    TARs, FARs, threshold = tester.test_verification(force_compare(utils.pair_MLS_score))
     for i in range(len(TARs)):
         print('TAR: {:.5} +- {:.5} FAR: {:.5}'.format(TARs[i], FARs[i], threshold[i]))
 
@@ -112,6 +118,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_dir", help="The path to the pre-trained model directory",
                         type=str, default=None)
+    parser.add_argument("--protocol", help="The dataset to test",
+                        type=str, default='ijba')
     parser.add_argument("--dataset_path", help="The path to the IJB-A dataset directory",
                         type=str, default='data/ijba_mtcnncaffe_aligned')
     parser.add_argument("--protocol_path", help="The path to the IJB-A protocol directory",

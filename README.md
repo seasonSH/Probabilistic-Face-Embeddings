@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/seasonSH/Probabilistic-Face-Embeddings/master/assets/PFE.png" width="600px">
 
-This is a demo code of training and testing [Probabilistic Face Embeddings]() using Tensorflow. Probabilistic Face Embeddgin (PFE) is a method that converts conventional CNN-based face embeddings into probabilistic embeddings by calibrating each feature value with an uncertainty value. The representation of each face will be an Guassian distribution parametrized by (mu, sigma), where mu is the original embedding and sigma is the learned uncertainty. Experiments show that PFE could improve the performance of face recognition by taking uncertainty into account.
+This is a demo code of training and testing [Probabilistic Face Embeddings](https://arxiv.org/abs/1904.09658) using Tensorflow. Probabilistic Face Embeddgin (PFE) is a method that converts conventional CNN-based face embeddings into probabilistic embeddings by calibrating each feature value with an uncertainty value. The representation of each face will be an Guassian distribution parametrized by (mu, sigma), where mu is the original embedding and sigma is the learned uncertainty. Experiments show that PFE could improve the performance of face recognition by taking uncertainty into account.
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/1000px-Tensorflow_logo.svg.png" width="25"/> Compatability
 Currently this repo is compatible with Python 3 and Tensorflow r1.9.
@@ -11,7 +11,14 @@ Currently this repo is compatible with Python 3 and Tensorflow r1.9.
 + 19/04/2019: Initial Upload.
 
 ## <img src="https://image.flaticon.com/icons/svg/182/182321.svg" width="25"/> Citation
-TODO
+
+    @article{shi2018docface,
+      title = {DocFace: Matching ID Document Photos to Selfies},
+      author = {Shi, Yichun and Jain, Anil K.},
+      booktitle = {arXiv:1904.09658},
+      year = {2018}
+    }
+
 
 ## <img src="https://image.flaticon.com/icons/svg/1/1383.svg" width="25"/> Usage
 **Note:** In this section, we assume that you are always in the directory **`$PROJECT_ROOT/`**
@@ -67,10 +74,10 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
 + **Template Fusion and Comparison**
     We use IJB-A dataset as an example for template face comparison. Make sure you have aligned IJB-A images using the previous commands. Then you can test it on the LFW dataset with the following result:
     ```Shell
-    python eval_ijba.py --model_dir /path/to/your/model/directory \
+    python eval_ijb.py --model_dir /path/to/your/model/directory \
     --dataset_path data/ijba_mtcnncaffe_aligned
     ```
-+ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could slightly be affected because of alignment. To use Matlab alignment code, you can check ```align/face_align_demo.m```.
++ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could slightly different because of alignment. To use Matlab alignment code, you can check ```align/face_align_demo.m```.
 
 ### Visualization of Uncertainty
 TODO

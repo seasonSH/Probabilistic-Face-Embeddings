@@ -55,7 +55,7 @@ embedding_size = 512
 ####### TRAINING STRATEGY #######
 
 # Base Random Seed
-base_random_seed = None
+base_random_seed = 0
 
 # Number of samples per batch
 batch_format = {
