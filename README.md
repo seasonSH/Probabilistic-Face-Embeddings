@@ -12,11 +12,11 @@ Currently this repo is compatible with Python 3 and Tensorflow r1.9.
 
 ## <img src="https://image.flaticon.com/icons/svg/182/182321.svg" width="25"/> Citation
 
-    @article{shi2018docface,
-      title = {DocFace: Matching ID Document Photos to Selfies},
-      author = {Shi, Yichun and Jain, Anil K.},
+    @article{shi2019PFE,
+      title = {Probabilistic Face Embeddings},
+      author = {Shi, Yichun and Jain, Anil K. and Kalka, Nathan D.},
       booktitle = {arXiv:1904.09658},
-      year = {2018}
+      year = {2019}
     }
 
 
