@@ -44,7 +44,7 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
     /path/to/IJB-A/images/ \
     data/ijba_cropped/
     ```
-    To crop the images, you need to make sure that there are two folders under the given dataset folder: ```img``` and ```frame```. And then align the images with the following command:
+    To crop the images, you need to make sure that there are two folders under the given dataset folder: ```img``` and ```frame```. After cropping, align the images with the following command:
     ``` Shell
     python align/align_dataset.py data/ldmark_ijba_mtcnncaffe.txt \
     data/ijba_mtcnncaffe_aligned \
@@ -53,7 +53,7 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
     ```
 
 ### Training
-1. Before training, you need to download the [base model](https://drive.google.com/open?id=1MiC_qCj5GFidWLtON9ekClOCJu6dPHT4). Unzip the files under ```pretrained/sphere64_caisa_am/```.
+1. Before training, you need to prepare a base embedding network. To use the example [base model](https://drive.google.com/open?id=1MiC_qCj5GFidWLtON9ekClOCJu6dPHT4), download zip file and unzip the files under ```pretrained/sphere64_caisa_am/```.
 
 2. The configuration files for training are saved under ```config/``` folder, where you can define the training data, pre-trained model, network definition and other hyper-parameters. 
 3. The uncertainty module that we are going to train is in ```models/uncertainty_module.py```.
@@ -65,19 +65,19 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
 
 ### Testing
 + **Single Image Comparison**
-    We use LFW dataset as an example for single image comparison. Make sure you have aligned LFW images using the previous commands. Then you can test it on the LFW dataset with the following result:
+    We use LFW dataset as an example for single image comparison. Make sure you have aligned LFW images using the previous commands. Then you can test it on the LFW dataset with the following command:
     ```Shell
     python eval_lfw.py --model_dir /path/to/your/model/directory \
     --dataset_path data/lfw_mtcnncaffe_aligned
     ```
 
 + **Template Fusion and Comparison**
-    We use IJB-A dataset as an example for template face comparison. Make sure you have aligned IJB-A images using the previous commands. Then you can test it on the LFW dataset with the following result:
+    We use IJB-A dataset as an example for template face comparison. Make sure you have aligned IJB-A images using the previous commands. Then you can test it on the IJB-A dataset with the following command:
     ```Shell
     python eval_ijb.py --model_dir /path/to/your/model/directory \
     --dataset_path data/ijba_mtcnncaffe_aligned
     ```
-+ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could slightly different because of alignment. 
++ Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could be slightly different. 
 
 ### Visualization of Uncertainty
 TODO
