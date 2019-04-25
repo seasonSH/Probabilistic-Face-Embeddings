@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/seasonSH/Probabilistic-Face-Embeddings/master/assets/PFE.png" width="600px">
 
-This is a demo code of training and testing [Probabilistic Face Embeddings](https://arxiv.org/abs/1904.09658) using Tensorflow. Probabilistic Face Embeddgin (PFE) is a method that converts conventional CNN-based face embeddings into probabilistic embeddings by calibrating each feature value with an uncertainty value. The representation of each face will be an Guassian distribution parametrized by (mu, sigma), where mu is the original embedding and sigma is the learned uncertainty. Experiments show that PFE could improve the performance of face recognition by taking uncertainty into account.
+This is a demo code of training and testing [Probabilistic Face Embeddings](https://arxiv.org/abs/1904.09658) using Tensorflow. Probabilistic Face Embeddging (PFE) is a method that converts conventional CNN-based face embeddings into probabilistic embeddings by calibrating each feature value with an uncertainty value. The representation of each face will be an Guassian distribution parametrized by (mu, sigma), where mu is the original embedding and sigma is the learned uncertainty. Experiments show that PFE could improve the performance of face recognition by taking uncertainty into account.
 
 ## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/1000px-Tensorflow_logo.svg.png" width="25"/> Compatability
 Currently this repo is compatible with Python 3 and Tensorflow r1.9.
