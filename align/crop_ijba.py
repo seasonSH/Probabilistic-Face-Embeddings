@@ -12,7 +12,7 @@ from scipy import misc
 import cv2 # Some images can not be read by misc, use opencv instead
 
 square_crop = True          # Take the max of (w,h) for a square bounding box
-padding_ratio = 0.1         # Add padding to bounding boxes by a ratio
+padding_ratio = 0.0         # Add padding to bounding boxes by a ratio
 target_size = (256, 256)    # If not None, resize image after processing
 
 def square_bbox(bbox):

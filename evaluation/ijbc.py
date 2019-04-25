@@ -9,7 +9,7 @@ import os
 import numpy as np
 import utils
 
-import facepy
+from evaluation import metrics
 from collections import namedtuple
 
 
@@ -129,9 +129,9 @@ class IJBCTest:
     def init_proto(self, protofolder):
         self.init_verification_proto(protofolder)
 
-    def test_verification(self, compare_func, FARs=None, get_false_indices=False):
+    def test_verification(self, compare_func, FARs=None):
 
-        FARs = [1e-6, 1e-5, 1e-4, 1e-3, 1e-2] if FARs is None else FARs
+        FARs = [1e-5, 1e-4, 1e-3, 1e-2] if FARs is None else FARs
 
         templates1 = self.verification_G1_templates
         templates2 = self.verification_G2_templates
@@ -144,6 +144,10 @@ class IJBCTest:
         score_vec = compare_func(features1, features2)
         label_vec = labels1 == labels2
 
-        return facepy.evaluation.ROC(score_vec, label_vec, 
-                FARs=FARs, get_false_indices=get_false_indices)
+        tars, fars, thresholds = metrics.ROC(score_vec, label_vec, FARs=FARs)
+        
+        # There is no std for IJB-C
+        std = [0. for t in tars]
+
+        return tars, std, fars
 
