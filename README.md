@@ -10,6 +10,7 @@ This is a demo code of training and testing [Probabilistic Face Embeddings](http
 Currently this repo is compatible with Python 3 and Tensorflow r1.9.
 
 ## <img src="https://image.flaticon.com/icons/svg/149/149366.svg" width="25"/> Update Notes
++ 30/04/2019: Upload more pre-trained models.
 + 19/04/2019: Initial Upload.
 
 ## <img src="https://image.flaticon.com/icons/svg/182/182321.svg" width="25"/> Citation
@@ -33,6 +34,7 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
     --prefix /path/to/CASIA-Webface/images \
     --transpose_input --image_size 96 112
     ```
+    If you want to train the Ms-ArcFace model, you can download the dataset [here](https://github.com/deepinsight/insightface/wiki/Dataset-Zoo) and decode it using [this code](https://github.com/deepinsight/insightface/blob/master/recognition/data/rec2image.py).
 2. Download the original images of LFW dataset and align the images with the following command:
     ``` Shell
     python align/align_dataset.py data/ldmark_lfw_mtcnncaffe.txt \
@@ -86,9 +88,22 @@ TODO
 
 
 ## <img src="https://image.flaticon.com/icons/svg/48/48541.svg" width="25"/> Pre-trained Model
-##### Base Model: 
-[Google Drive](https://drive.google.com/open?id=1MiC_qCj5GFidWLtON9ekClOCJu6dPHT4)
+#### 64-CNN on CASIA-WebFace: 
+Base Mode: [Google Drive](https://drive.google.com/open?id=1MiC_qCj5GFidWLtON9ekClOCJu6dPHT4)  
+PFE: [Google Drive](https://drive.google.com/open?id=1BeTUYnc__u1_cYEKoXqfGDQjdk2TChoD)
 
+#### 64-CNN on MS-ArcFace: 
+Base Mode: [Google Drive](https://drive.google.com/open?id=15CMJ4vh2_fdX3M05CIJY7V2B0ydoSr2Q)  
+PFE: [Google Drive](https://drive.google.com/open?id=1R-sl5vaxWheyQBpgtONiSH5Qt4153Tl3)
 
+Note: In the paper we used a different version of Ms-Celeb-1M. According to the authors of ArcFace, this dataset (MS-ArcFace) has already been cleaned and has no overlap with the test data.
 
+#### Test Results: 
+| Model | Method | LFW | IJB-A (FAR=0.1%) |
+| ----- | ------ |--- | ----- |
+| 64-CNN CASIA-WebFace | Baseline | 99.20 | 83.21 |
+| 64-CNN CASIA-WebFace | PFE | 99.47 | 87.53 |
+| 64-CNN Ms-ArcFace | Baseline | 99.72 | 91.93 |
+| 64-CNN Ms-ArcFace | PFE | 99.83 | 94.82 |
 
+(The PFE models and test results are obtained using exactly this demo code)
