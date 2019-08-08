@@ -103,13 +103,13 @@ def inference(images, embedding_size=512, reuse=None, scope='SphereNet'):
                 net_ = net
                 net = slim.flatten(net)
 
-                prelogits = slim.fully_connected(net, embedding_size, scope='Bottleneck',
+                mu = slim.fully_connected(net, embedding_size, scope='Bottleneck',
                                         weights_initializer=slim.xavier_initializer(),
                                         normalizer_fn=slim.batch_norm, normalizer_params=batch_norm_params_last,
                                         activation_fn=None)
                 
                 # Output used for PFE
-                mu = tf.nn.l2_normalize(prelogits, axis=1)
+                mu = tf.nn.l2_normalize(mu, axis=1)
                 conv_final = net
             
     return mu, conv_final

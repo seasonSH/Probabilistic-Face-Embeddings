@@ -115,7 +115,7 @@ def parse_arguments(argv):
     parser.add_argument('output_dir', type=str, help='Directory with aligned face thumbnails.', default=None)
     parser.add_argument('--prefix', type=str, help='The prefix of the image files in the input_file.', default=None)
     parser.add_argument('--image_size', type=int, nargs=2,
-        help='Image size (height, width) in pixels.', default=[256, 256])
+        help='Image size (height, width) in pixels.', default=[112, 112])
     parser.add_argument('--scale', type=float,
         help='Scale the face size in the target image.', default=1.0)
     parser.add_argument('--dir_depth', type=int,

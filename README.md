@@ -2,6 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/seasonSH/Probabilistic-Face-Embeddings/master/assets/PFE.png" width="600px">
 
+#### News: Our paper has been accepted to ICCV 2019.
 This is a demo code of training and testing [Probabilistic Face Embeddings](https://arxiv.org/abs/1904.09658) using Tensorflow. Probabilistic Face Embeddging (PFE) is a method that converts conventional CNN-based face embeddings into probabilistic embeddings by calibrating each feature value with an uncertainty value. The representation of each face will be an Guassian distribution parametrized by (mu, sigma), where mu is the original embedding and sigma is the learned uncertainty. Experiments show that PFE could
 + improve the performance of face recognition models by taking uncertainty into account.
 + give more insight into the models' understanding of faces and more controll over potential risks.
@@ -10,6 +11,7 @@ This is a demo code of training and testing [Probabilistic Face Embeddings](http
 Currently this repo is compatible with Python 3 and Tensorflow r1.9.
 
 ## <img src="https://image.flaticon.com/icons/svg/149/149366.svg" width="25"/> Update Notes
++ 07/08/2019: Correct the CASIA file list.
 + 30/04/2019: Upload more pre-trained models.
 + 19/04/2019: Initial Upload.
 
@@ -17,7 +19,7 @@ Currently this repo is compatible with Python 3 and Tensorflow r1.9.
 
     @article{shi2019PFE,
       title = {Probabilistic Face Embeddings},
-      author = {Shi, Yichun and Jain, Anil K. and Kalka, Nathan D.},
+      author = {Shi, Yichun and Jain, Anil K.},
       booktitle = {arXiv:1904.09658},
       year = {2019}
     }
@@ -71,14 +73,14 @@ In this demo, we will use CASIA-WebFace, LFW and IJB-A as examples for training 
 + **Single Image Comparison**
     We use LFW dataset as an example for single image comparison. Make sure you have aligned LFW images using the previous commands. Then you can test it on the LFW dataset with the following command:
     ```Shell
-    python eval_lfw.py --model_dir /path/to/your/model/directory \
+    python evaluation/eval_lfw.py --model_dir /path/to/your/model/directory \
     --dataset_path data/lfw_mtcnncaffe_aligned
     ```
 
 + **Template Fusion and Comparison**
     We use IJB-A dataset as an example for template face comparison. Make sure you have aligned IJB-A images using the previous commands. Then you can test it on the IJB-A dataset with the following command:
     ```Shell
-    python eval_ijb.py --model_dir /path/to/your/model/directory \
+    python evaluation/eval_ijb.py --model_dir /path/to/your/model/directory \
     --dataset_path data/ijba_mtcnncaffe_aligned
     ```
 + Note that in the original paper, I used Matlab to normalize the images, but this demo uses pure python implementation. So the performance could be slightly different. 
